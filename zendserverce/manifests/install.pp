@@ -8,14 +8,14 @@ class zendserverce::install($php_version="5.3") {
 	}
 
 	exec { "zend_key":
-		command => "wget http://repos.zend.com/zend.key -O- |apt-key add -",
+		command => "sudo wget http://repos.zend.com/zend.key -O - | sudo apt-key add -",
 		path => [
 			"/usr/bin",
 			"/usr/sbin"
 		]
   	}
 
-  	exec { "apt_update":
+  	exec { "apt_update_zend":
 		command => "/usr/bin/apt-get update",
 		require	=> [
 			File_line['debian_package'],
@@ -25,20 +25,18 @@ class zendserverce::install($php_version="5.3") {
 
 	package { "zend-server-ce-php-$php_version":
        ensure => "latest",
-       require	=> Exec["apt_update"]
+       require	=> Exec["apt_update_zend"]
   	}
 
   	file { "/var/www/index.php":
       source => "puppet:///modules/zendserverce/html/index.php",
       require => Package["zend-server-ce-php-$php_version"],
       replace => true
-   	}
+   }
 
 	file { "/var/www/index.html":
       require => Package["zend-server-ce-php-$php_version"],
       ensure => absent
-   	}
-
-
+   }
 
 }

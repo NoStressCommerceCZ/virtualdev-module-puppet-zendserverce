@@ -3,6 +3,7 @@ virtualdev-module-puppet-zendserver
 
 Puppet for installation of Zend Server CE. By default support for PHP 5.3 is enabled.
 
+
 	node default {
 
 		include zendserverce
@@ -17,5 +18,4 @@ Puppet for installation of Zend Server CE. By default support for PHP 5.3 is ena
 				'asset4.example-site.com',
 			],
 		}
-
 	}
