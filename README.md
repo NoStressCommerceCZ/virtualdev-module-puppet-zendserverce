@@ -6,7 +6,11 @@ Puppet for installation of Zend Server CE. By default support for PHP 5.3 is ena
 
 	node default {
 
-		include zendserverce
+		class { 'zendserverce::install':
+		  php_version      => '5.3',
+		}
+		
+		class { 'zendserverce::service'}
 	
 		zendserverce::vhost { 'example-site.com':
 			server_name	=> 'example-site.com',

@@ -38,5 +38,18 @@ class zendserverce::install($php_version="5.3") {
       require => Package["zend-server-ce-php-$php_version"],
       ensure => absent
    }
+   
+   file { '/usr/bin/php':
+   	require => Package["zend-server-ce-php-$php_version"],
+	   ensure => 'link',
+	   target => '/usr/local/zend/bin/php',
+	}
+	
+	file { '/usr/bin/pear':
+		require => Package["zend-server-ce-php-$php_version"],
+	   ensure => 'link',
+	   target => '/usr/local/zend/bin/pear',
+	}
+   
 
 }
